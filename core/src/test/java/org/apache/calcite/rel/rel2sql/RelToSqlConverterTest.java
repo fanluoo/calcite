@@ -3068,6 +3068,12 @@ class RelToSqlConverterTest {
     sql(query).dialect(HiveSqlDialect.DEFAULT).ok(expected);
   }
 
+  /** Test case for
+   * <a href="https://issues.apache.org/jira/browse/CALCITE-2719">[CALCITE-2719]
+   * MySQL does not support cast to BIGINT type</a>
+   * and
+   * <a href="https://issues.apache.org/jira/browse/CALCITE-6426">[CALCITE-6426]
+   * Invalid unparse for INT and BIGINT in StarRocksDialect</a>. */
   @Test void testCastToBigint() {
     final String query = "select cast(\"product_id\" as bigint) from \"product\"";
     // MySQL does not allow cast to BIGINT; instead cast to SIGNED.
@@ -3080,7 +3086,12 @@ class RelToSqlConverterTest {
         .withStarRocks().ok(expectedStarRocks);
   }
 
-
+  /** Test case for
+   * <a href="https://issues.apache.org/jira/browse/CALCITE-2719">[CALCITE-2719]
+   * MySQL does not support cast to BIGINT type</a>
+   * and
+   * <a href="https://issues.apache.org/jira/browse/CALCITE-6426">[CALCITE-6426]
+   * Invalid unparse for INT and BIGINT in StarRocksDialect</a>. */
   @Test void testCastToInteger() {
     final String query = "select \"employee_id\",\n"
         + "  cast(\"salary_paid\" * 10000 as integer)\n"
